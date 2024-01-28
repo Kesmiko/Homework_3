@@ -5,10 +5,9 @@ import re
 
 
 # Задача перша
-def get_days_from_today():
+def get_days_from_today(date):
     while get_days_from_today:
         try:
-            date = (input("Enter your date: "))
             user_date = dtdt.strptime(date, '%Y-%m-%d')
             currently_date = dtdt.today()
             delta_days = currently_date - user_date
@@ -17,24 +16,24 @@ def get_days_from_today():
         except ValueError:
             print("Incorrect input, enter please (YYYY-MM-DD)")
 
-get_days_from_today()
+get_days_from_today(date='2024-02-02')
 
 
-# Задача друга
+# # Задача друга
 def get_numbers_ticket(min_, max_, quantity):
     list_1 = []
+    if min_ < 1 or max_ > 1000:
+            return []
     while len(list_1) < quantity:
         num = random.randint(min_,max_)
-        if min_ < 1 or max_ > 1000 or quantity not in range(min_,max_):
-            return []
         if num not in list_1:
             list_1.append(num)
     return sorted(list_1)
-lottery_numbers = get_numbers_ticket(1, 100, 5)
+lottery_numbers = get_numbers_ticket(10, 20, 5)
 print(lottery_numbers)
 
 
-# Задача третя
+# # Задача третя
 raw_numbers = [
     "067\\t123 4567",
     "(095) 234-5678\n",
@@ -45,6 +44,8 @@ raw_numbers = [
     "(050)8889900",
     "38050-111-22-22",
     "38050 111 22 11    ",
+    "432 11 222 22 22",
+    "+123456789012"
 ]
 def normalize_phone(phone_number):
     pattern = r"[\d\+]+"
@@ -63,32 +64,32 @@ sanitized_numbers = [normalize_phone(phone) for phone in raw_numbers]
 print("Нормалізовані номери телефонів для SMS-розсилки:", sanitized_numbers)
 
 
-# Задача четверта
-users = [
-    {"name": "John Doe", "birthday": "1985.01.23"},
-    {"name": "Jane Smith", "birthday": "1990.02.03"}
-]
+# # Задача четверта
+# users = [
+#     {"name": "John Doe", "birthday": "1985.01.23"},
+#     {"name": "Jane Smith", "birthday": "1990.02.03"}
+# ]
 
-def get_upcoming_birthdays(users=None):
-    today_date = dtdt.today().date()
-    birthdays = [] 
-    for user in users: 
-        birthday_date = user["birthday"] 
-        birthday_date = str(today_date.year) + birthday_date[4:] 
-        birthday_date = dtdt.strptime(birthday_date, "%Y.%m.%d").date() 
-        week_day = birthday_date.isoweekday() 
-        days_between= (birthday_date - today_date).days 
-        if 0 <= days_between < 7: 
-            if week_day < 6: 
-                birthdays.append({'name':user['name'], 'congratulation_date':birthday_date.strftime("%Y.%m.%d")}) 
-            else:
-                if (birthday_date + dt.timedelta(days = 1)).weekday() == 0:
-                    birthdays.append({'name':user['name'], 'congratulation_date':(birthday_date + dt.timedelta(days = 1)).strftime("%Y.%m.%d")})
-                elif (birthday_date+dt.timedelta(days = 2)).weekday() == 0: 
-                    birthdays.append({'name':user['name'], 'congratulation_date':(birthday_date + dt.timedelta(days = 2)).strftime("%Y.%m.%d")})
-    return birthdays
+# def get_upcoming_birthdays(users=None):
+#     today_date = dtdt.today().date()
+#     birthdays = [] 
+#     for user in users: 
+#         birthday_date = user["birthday"] 
+#         birthday_date = str(today_date.year) + birthday_date[4:] 
+#         birthday_date = dtdt.strptime(birthday_date, "%Y.%m.%d").date() 
+#         week_day = birthday_date.isoweekday() 
+#         days_between= (birthday_date - today_date).days 
+#         if 0 <= days_between < 7: 
+#             if week_day < 6: 
+#                 birthdays.append({'name':user['name'], 'congratulation_date':birthday_date.strftime("%Y.%m.%d")}) 
+#             else:
+#                 if (birthday_date + dt.timedelta(days = 1)).weekday() == 0:
+#                     birthdays.append({'name':user['name'], 'congratulation_date':(birthday_date + dt.timedelta(days = 1)).strftime("%Y.%m.%d")})
+#                 elif (birthday_date+dt.timedelta(days = 2)).weekday() == 0: 
+#                     birthdays.append({'name':user['name'], 'congratulation_date':(birthday_date + dt.timedelta(days = 2)).strftime("%Y.%m.%d")})
+#     return birthdays
 
-print(get_upcoming_birthdays(users))
+# print(get_upcoming_birthdays(users))
 
 
 
